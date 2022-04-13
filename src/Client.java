@@ -9,6 +9,23 @@ private ShoppingCart shoppingCart;
         this.shoppingCart = new ShoppingCart();
     }
 
+    public void addAProductToTheShoppingCart(Product product)
+    {
+        this.shoppingCart.add(product);
+    }
+
+    public void printSumShoppingCart()
+    {
+        double sum = 0;
+
+            for (Product product : this.shoppingCart.getProductsInCart())
+            {
+                sum += vipMember ? product.getPriceWithDiscount() : product.getPrice();
+            }
+        System.out.println("The sum of the  cart is: "+sum);
+
+    }
+
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
     }
