@@ -178,12 +178,54 @@ public class Store
 
     public void employeeMenu(Employee employee)
     {
+        int employeeChoice;
+        System.out.println("Hello "+employee.getFirstName()+" "+employee.getLastName()+" "+"("+employee.getRank()+")");
+        System.out.println("1- Print all the clients");
+        System.out.println("2- Print all the vip clients");
+        System.out.println("3- Print the clients that had bought once or more products");
+        System.out.println("4- Print the client that his sum of products is the most");
+        System.out.println("5- Add another product to the store");
+        System.out.println("6- Change a status for a product");
+        System.out.println("7- Make a purchase");
+        System.out.println("8- Log out");
+        employeeChoice=scanner.nextInt();
+
+        switch (employeeChoice)
+        {
+            case 1:
+                printClients();
+                break;
+            case 2:
+                printVIPClients();
+                break;
+            case 3:
+                printClientsThatBought();
+                break;
+            case 4:
+                printMaxSpanderClient();
+                break;
+            case 5:
+                addProduct();
+                break;
+            case 6:
+                changeProductStatus();
+                break;
+            case 7:
+                makeAPurchase();
+                break;
+            case 8:
+                System.out.println("Bye Bye");
+                break;
+            default:
+                System.out.println("you entered a wrong input");
+
+        }
 
     }
     public void clientMenu(Client client)
     {
         int productNum;
-        System.out.println("Hello"+client.getFirstName()+" "+client.getLastName()+(client.isVipMember()? " VIP!":""));
+        System.out.println("Hello "+client.getFirstName()+" "+client.getLastName()+(client.isVipMember()? " VIP!":""));
         for (Integer integer :products.keySet())
         {
             System.out.println(integer+"-"+products.get(integer).getProductName());
@@ -197,5 +239,44 @@ public class Store
         while (productNum!=-1);
     }
 
+
+
+    public void printClients()
+    {
+        for(int i = 0; i < clients.size(); i++)
+        {
+            System.out.print("1- "+clients.get(i).toString());
+        }
+    }
+
+    public void printVIPClients()
+    {
+
+    }
+
+    public void printClientsThatBought()
+    {
+
+    }
+
+    public void printMaxSpanderClient()
+    {
+
+    }
+
+    public void addProduct()
+    {
+
+    }
+
+    public void changeProductStatus()
+    {
+
+    }
+
+    public void makeAPurchase()
+    {
+
+    }
 
 }

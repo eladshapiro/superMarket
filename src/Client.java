@@ -37,4 +37,9 @@ private ShoppingCart shoppingCart;
     public void setVipMember(boolean vipMember) {
         this.vipMember = vipMember;
     }
+    public String toString()
+    {
+        String toString=getFirstName()+" "+getLastName();
+        return toString;
+    }
 }
