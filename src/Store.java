@@ -202,7 +202,7 @@ public class Store
                 printClientsThatBought();
                 break;
             case 4:
-                printMaxSpanderClient();
+                printMaxSpenderClient();
                 break;
             case 5:
                 addProduct();
@@ -251,17 +251,41 @@ public class Store
 
     public void printVIPClients()
     {
-
+        for(int i = 0; i < clients.size(); i++)
+        {
+            if (clients.get(i).isVipMember())
+            {
+                System.out.print("1- " + clients.get(i).toString());
+            }
+        }
     }
 
     public void printClientsThatBought()
     {
-
+        for(int i = 0; i < clients.size(); i++)
+        {
+            if (!clients.get(i).isShoppingCartEmpty())
+            {
+                System.out.print("1- " + clients.get(i).toString());
+            }
+        }
     }
 
-    public void printMaxSpanderClient()
+    public void printMaxSpenderClient()
     {
+        double max=0,ClientProductSum=0;
+        int index=0;
 
+        for(int i = 0; i < clients.size(); i++)
+        {
+            ClientProductSum=clients.get(i).getSumOfProductsByPrice();
+            if (ClientProductSum>max)
+            {
+               max=ClientProductSum;
+               index=i;
+            }
+        }
+        System.out.println("this is the client that spend the most money: "+clients.get(index).toString());
     }
 
     public void addProduct()

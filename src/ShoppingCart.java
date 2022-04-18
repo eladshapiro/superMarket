@@ -21,4 +21,6 @@ public class ShoppingCart
     public void setProductsInCart(ArrayList<Product> productsInCart) {
         this.productsInCart = productsInCart;
     }
+
+
 }

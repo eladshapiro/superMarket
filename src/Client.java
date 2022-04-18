@@ -42,4 +42,31 @@ private ShoppingCart shoppingCart;
         String toString=getFirstName()+" "+getLastName();
         return toString;
     }
+
+    public boolean isShoppingCartEmpty()
+    {
+        if (shoppingCart.getProductsInCart().isEmpty())
+            return true;
+        return false;
+    }
+
+    public double getSumOfProductsByPrice()
+    {
+        int sum=0;
+        if (vipMember==true)
+        {
+            for(int i = 0; i < shoppingCart.getProductsInCart().size(); i++)
+            {
+                sum+=shoppingCart.getProductsInCart().get(i).getPriceWithDiscount();
+            }
+        }
+        else
+        {
+            for(int i = 0; i < shoppingCart.getProductsInCart().size(); i++)
+            {
+                sum+=shoppingCart.getProductsInCart().get(i).getPrice();
+            }
+        }
+        return sum;
+    }
 }
