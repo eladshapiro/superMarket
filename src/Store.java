@@ -14,7 +14,6 @@ public class Store
         this.clients =new ArrayList<>();
         this.employees =new ArrayList<>();
         this.products =new HashMap<>();
-        mapIndex++;
     }
 
 
@@ -300,8 +299,8 @@ public class Store
         price=scanner.nextDouble();
         System.out.println("Please enter the discount for the VIP members (as 0.2..)");
         discount=scanner.nextDouble();
-
         products.put(mapIndex,new Product(productName,price,discount,true));
+        mapIndex++;
     }
 
     public void changeProductStatus()
