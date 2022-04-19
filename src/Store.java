@@ -305,7 +305,28 @@ public class Store
 
     public void changeProductStatus()
     {
-
+        int productNum;
+        String isTrueOrFalse;
+        System.out.println("Here is the list of products:");
+        for (Integer integer :products.keySet())
+        {
+            System.out.println(integer+"-"+products.get(integer).getProductName());
+        }
+        System.out.println("please enter the number of product that you want to change his status:");
+        productNum=scanner.nextInt();
+        System.out.println("Enter true if it in stock, or false if it not in stock");
+        isTrueOrFalse=scanner.nextLine();
+        if ((productNum<=mapIndex&&productNum>=0)&&(isTrueOrFalse=="true"||isTrueOrFalse=="false"))      //checks if the input is valid
+        {
+            if (isTrueOrFalse=="true")
+            {
+                products.get(productNum).setInStock(true);
+            }
+            else
+            {
+                products.get(productNum).setInStock(false);
+            }
+        }
     }
 
     public void makeAPurchase()
