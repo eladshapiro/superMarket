@@ -69,5 +69,6 @@ public class Product
                 return price-(price*0.3);   //30 percent discount
             }
         }
+            return 0;
     }
 }

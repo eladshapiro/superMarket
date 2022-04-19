@@ -48,6 +48,7 @@ public class Store
         System.out.println("Press 1 for Employee");
         System.out.println("Press 2 for Client");
         int choice=scanner.nextInt();
+        scanner.nextLine();
         String firstName;
         String lastName;
         String userName;
@@ -133,6 +134,7 @@ public class Store
         {
             System.out.println("Do you want to connect  to account of a Employee or a client\n 1-Employee\n2-client");
             whichUser=scanner.nextInt();
+            scanner.nextLine();
             System.out.println("Enter your user name");
             userName=scanner.nextLine();
             System.out.println("Enter your password");
@@ -190,6 +192,7 @@ public class Store
         System.out.println("7- Make a purchase");
         System.out.println("8- Log out");
         employeeChoice=scanner.nextInt();
+        scanner.nextLine();
 
         switch (employeeChoice)
         {
@@ -238,6 +241,7 @@ public class Store
         {
             System.out.println("Enter the number of the product you want: (-1 to stop)");
             productNum=scanner.nextInt();
+            scanner.nextLine();
             client.addAProductToTheShoppingCart(products.get(productNum));
         }
         while (productNum!=-1);
@@ -317,6 +321,7 @@ public class Store
         }
         System.out.println("please enter the number of product that you want to change his status:");
         productNum=scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Enter true if it in stock, or false if it not in stock");
         isTrueOrFalse=scanner.nextLine();
         if ((productNum<=mapIndex&&productNum>=0)&&(isTrueOrFalse=="true"||isTrueOrFalse=="false"))      //checks if the input is valid
@@ -346,6 +351,7 @@ public class Store
         {
             System.out.println("Enter the number of the product you want: (-1 to stop)");
             productNum=scanner.nextInt();
+            scanner.nextLine();
             employee.addAProductToTheShoppingCart(products.get(productNum));
         }
         while (productNum!=-1);
