@@ -5,14 +5,16 @@ import java.util.Scanner;
 public class Store
 {
     Scanner scanner=new Scanner(System.in);
-    ArrayList<Client> clients;
-    ArrayList<Employee> employees;
-    HashMap<Integer,Product> products;
+    private ArrayList<Client> clients;
+    private ArrayList<Employee> employees;
+    private HashMap<Integer,Product> products;
+    static int mapIndex;
 
     public Store() {
         this.clients =new ArrayList<>();
         this.employees =new ArrayList<>();
         this.products =new HashMap<>();
+        mapIndex++;
     }
 
 
@@ -290,7 +292,16 @@ public class Store
 
     public void addProduct()
     {
+        String productName;
+        double price,discount;
+        System.out.println("Please enter the product name:");
+        productName=scanner.nextLine();
+        System.out.println("Please enter the price of the product: ");
+        price=scanner.nextDouble();
+        System.out.println("Please enter the discount for the VIP members (as 0.2..)");
+        discount=scanner.nextDouble();
 
+        products.put(mapIndex,new Product(productName,price,discount,true));
     }
 
     public void changeProductStatus()

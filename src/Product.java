@@ -3,7 +3,15 @@ public class Product
     private String productName;
     private double price;
     private double discountForMember;
-    private int amount;
+    private boolean inStock;
+
+    public Product(String productName, double price, double discountForMember, boolean inStock)
+    {
+        this.productName = productName;
+        this.price = price;
+        this.discountForMember = discountForMember;
+        this.inStock = inStock;
+    }
 
     public String getProductName() {
         return productName;
@@ -29,13 +37,6 @@ public class Product
         this.discountForMember = discountForMember;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     public double getPriceWithDiscount()
     {

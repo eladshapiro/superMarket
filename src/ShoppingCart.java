@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ShoppingCart
 {
@@ -18,9 +19,7 @@ public class ShoppingCart
         return productsInCart;
     }
 
-    public void setProductsInCart(ArrayList<Product> productsInCart) {
-        this.productsInCart = productsInCart;
-    }
+
 
 
 }
