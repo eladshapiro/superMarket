@@ -212,7 +212,7 @@ public class Store
                 changeProductStatus();
                 break;
             case 7:
-                makeAPurchase();
+                makeAPurchase(employee);
                 break;
             case 8:
                 System.out.println("Bye Bye");
@@ -229,11 +229,14 @@ public class Store
         System.out.println("Hello "+client.getFirstName()+" "+client.getLastName()+(client.isVipMember()? " VIP!":""));
         for (Integer integer :products.keySet())
         {
-            System.out.println(integer+"-"+products.get(integer).getProductName());
+            if (products.get(integer).getIsInStock())    //if the product is in stock
+            {
+                System.out.println(integer + "-" + products.get(integer).getProductName());
+            }
         }
         do
         {
-            System.out.println("Enter the number of the product yo want:");
+            System.out.println("Enter the number of the product you want: (-1 to stop)");
             productNum=scanner.nextInt();
             client.addAProductToTheShoppingCart(products.get(productNum));
         }
@@ -329,9 +332,23 @@ public class Store
         }
     }
 
-    public void makeAPurchase()
+    public void makeAPurchase(Employee employee)
     {
-
+        int productNum;
+        for (Integer integer :products.keySet())
+        {
+            if (products.get(integer).getIsInStock())    //if the product is in stock
+            {
+                System.out.println(integer + "-" + products.get(integer).getProductName());
+            }
+        }
+        do
+        {
+            System.out.println("Enter the number of the product you want: (-1 to stop)");
+            productNum=scanner.nextInt();
+            employee.addAProductToTheShoppingCart(products.get(productNum));
+        }
+        while (productNum!=-1);
     }
 
 }

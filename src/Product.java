@@ -5,6 +5,10 @@ public class Product
     private double discountForMember;
     private boolean inStock;
 
+    public boolean getIsInStock() {
+        return inStock;
+    }
+
     public Product(String productName, double price, double discountForMember, boolean inStock)
     {
         this.productName = productName;
@@ -13,7 +17,8 @@ public class Product
         this.inStock = inStock;
     }
 
-    public void setInStock(boolean inStock) {
+    public void setInStock(boolean inStock)
+    {
         this.inStock = inStock;
     }
 
@@ -45,5 +50,24 @@ public class Product
     public double getPriceWithDiscount()
     {
         return price-(price*discountForMember);
+    }
+
+    public double GetPriceAfterDiscountForEmployee(User user)
+    {
+        if (user instanceof Employee)
+        {
+            if (((Employee) user).getRank()==whichRank.regularEmployee)
+            {
+                return price-(price*0.1);   //10 percent discount
+            }
+            if (((Employee) user).getRank()==whichRank.manager)
+            {
+                return price-(price*0.2);   //20 percent discount
+            }
+            if (((Employee) user).getRank()==whichRank.managementMember)
+            {
+                return price-(price*0.3);   //30 percent discount
+            }
+        }
     }
 }
