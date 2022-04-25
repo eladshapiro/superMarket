@@ -1,24 +1,18 @@
 public class Client extends User
 {
 private boolean vipMember;
-private ShoppingCart shoppingCart;
 
     public Client(String firstName, String lastName, String userName, String password, boolean vipMember) {
         super(firstName, lastName, userName, password);
         this.vipMember = vipMember;
-        this.shoppingCart = new ShoppingCart();
-    }
 
-    public void addAProductToTheShoppingCart(Product product)
-    {
-        this.shoppingCart.add(product);
     }
 
     public void printSumShoppingCart()
     {
         double sum = 0;
 
-            for (Product product : this.shoppingCart.getProductsInCart())
+            for (Product product : this.getShoppingCart().getProductsInCart())
             {
                 sum += vipMember ? product.getPriceWithDiscount() : product.getPrice();
             }
@@ -26,9 +20,20 @@ private ShoppingCart shoppingCart;
 
     }
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
+    public double getSumShoppingCart()
+    {
+        double sum = 0;
+
+        for (Product product : this.getShoppingCart().getProductsInCart())
+        {
+            sum += vipMember ? product.getPriceWithDiscount() : product.getPrice();
+        }
+        return sum;
+
     }
+
+
+
 
     public boolean isVipMember() {
         return vipMember;
@@ -43,30 +48,4 @@ private ShoppingCart shoppingCart;
         return toString;
     }
 
-    public boolean isShoppingCartEmpty()
-    {
-        if (shoppingCart.getProductsInCart().isEmpty())
-            return true;
-        return false;
-    }
-
-    public double getSumOfProductsByPrice()
-    {
-        int sum=0;
-        if (vipMember==true)
-        {
-            for(int i = 0; i < shoppingCart.getProductsInCart().size(); i++)
-            {
-                sum+=shoppingCart.getProductsInCart().get(i).getPriceWithDiscount();
-            }
-        }
-        else
-        {
-            for(int i = 0; i < shoppingCart.getProductsInCart().size(); i++)
-            {
-                sum+=shoppingCart.getProductsInCart().get(i).getPrice();
-            }
-        }
-        return sum;
-    }
 }

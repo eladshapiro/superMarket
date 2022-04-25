@@ -52,23 +52,4 @@ public class Product
         return price-(price*discountForMember);
     }
 
-    public double GetPriceAfterDiscountForEmployee(User user)
-    {
-        if (user instanceof Employee)
-        {
-            if (((Employee) user).getRank()==whichRank.regularEmployee)
-            {
-                return price-(price*0.1);   //10 percent discount
-            }
-            if (((Employee) user).getRank()==whichRank.manager)
-            {
-                return price-(price*0.2);   //20 percent discount
-            }
-            if (((Employee) user).getRank()==whichRank.managementMember)
-            {
-                return price-(price*0.3);   //30 percent discount
-            }
-        }
-            return 0;
-    }
 }

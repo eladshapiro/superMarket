@@ -29,31 +29,42 @@ public class Store
 
     public void addEmployee(String firstName,String lastName,String userName,String password)
     {
-        System.out.println("What is your Rank? type it!");
-        System.out.println("regularEmployee \n manager \n managementMember");
-        whichRank rank= whichRank.valueOf(scanner.nextLine());
-
+        String rankInput=null;
+        whichRank rank = null;
+        do {
+            System.out.println("What is your Rank? type it!");
+            System.out.println("regularEmployee\nmanager\nmanagementMember");
+            rankInput=scanner.nextLine();
+            if (rankInput.equals("regularEmployee") || rankInput.equals("manager") || rankInput.equals("managementMember"))
+            {
+                rank = whichRank.valueOf(rankInput);
+            }
+        }
+        while (!rankInput.equals("regularEmployee") && !rankInput.equals("manager") && !rankInput.equals("managementMember"));
         Employee employee=new Employee(firstName,lastName,userName,password,rank);
 
         this.employees.add(employee);
     }
 
-    public void addProduct(Product newProduct)
-    {
-
-    }
-
     public void addUser()
     {
-        System.out.println("Press 1 for Employee");
-        System.out.println("Press 2 for Client");
-        int choice=scanner.nextInt();
-        scanner.nextLine();
+        int choice=0;
+        String choiceInput;
         String firstName;
         String lastName;
         String userName;
         String password;
 
+        do {
+            System.out.println("Press 1 for Employee");
+            System.out.println("Press 2 for Client");
+            choiceInput=scanner.nextLine();        // if the user dosent put  int
+            if (choiceInput.equals("1") || choiceInput.equals("2"))
+            {
+                choice = Integer.parseInt(choiceInput);
+            }
+        }
+        while (choice!=1 && choice!=2);
 
         do {
             System.out.println("Enter your first name:");
@@ -132,7 +143,7 @@ public class Store
         User user=new User();
         do
         {
-            System.out.println("Do you want to connect  to account of a Employee or a client\n 1-Employee\n2-client");
+            System.out.println("Do you want to connect  to account of a Employee or a client\n1-Employee\n2-client");
             whichUser=scanner.nextInt();
             scanner.nextLine();
             System.out.println("Enter your user name");
@@ -182,100 +193,111 @@ public class Store
     public void employeeMenu(Employee employee)
     {
         int employeeChoice;
-        System.out.println("Hello "+employee.getFirstName()+" "+employee.getLastName()+" "+"("+employee.getRank()+")");
-        System.out.println("1- Print all the clients");
-        System.out.println("2- Print all the vip clients");
-        System.out.println("3- Print the clients that had bought once or more products");
-        System.out.println("4- Print the client that his sum of products is the most");
-        System.out.println("5- Add another product to the store");
-        System.out.println("6- Change a status for a product");
-        System.out.println("7- Make a purchase");
-        System.out.println("8- Log out");
-        employeeChoice=scanner.nextInt();
-        scanner.nextLine();
 
-        switch (employeeChoice)
-        {
-            case 1:
-                printClients();
-                break;
-            case 2:
-                printVIPClients();
-                break;
-            case 3:
-                printClientsThatBought();
-                break;
-            case 4:
-                printMaxSpenderClient();
-                break;
-            case 5:
-                addProduct();
-                break;
-            case 6:
-                changeProductStatus();
-                break;
-            case 7:
-                makeAPurchase(employee);
-                break;
-            case 8:
-                System.out.println("Bye Bye");
-                break;
-            default:
-                System.out.println("you entered a wrong input");
+        do {
+            System.out.println("Hello " + employee.getFirstName() + " " + employee.getLastName() + " " + "(" + employee.getRank() + ")");
+            System.out.println("1- Print all the clients");
+            System.out.println("2- Print all the vip clients");
+            System.out.println("3- Print the clients that had bought once or more products");
+            System.out.println("4- Print the client that his sum of products is the most");
+            System.out.println("5- Add another product to the store");
+            System.out.println("6- Change a status for a product");
+            System.out.println("7- Make a purchase");
+            System.out.println("8- Log out");
+            employeeChoice = scanner.nextInt();
+            scanner.nextLine();
 
+            switch (employeeChoice) {
+                case 1:
+                    printClients();
+                    break;
+                case 2:
+                    printVIPClients();
+                    break;
+                case 3:
+                    printClientsThatBought();
+                    break;
+                case 4:
+                    printMaxSpenderClient();
+                    break;
+                case 5:
+                    addProduct();
+                    break;
+                case 6:
+                    changeProductStatus();
+                    break;
+                case 7:
+                    makeAPurchase(employee);
+                    employee.printSumShoppingCart();
+                    break;
+                case 8:
+                    System.out.println("Bye Bye");
+                    break;
+                default:
+                    System.out.println("you entered a wrong input");
+            }
         }
-
+        while (employeeChoice!=8);
     }
+
+
     public void clientMenu(Client client)
     {
         int productNum;
         System.out.println("Hello "+client.getFirstName()+" "+client.getLastName()+(client.isVipMember()? " VIP!":""));
-        for (Integer integer :products.keySet())
-        {
-            if (products.get(integer).getIsInStock())    //if the product is in stock
-            {
-                System.out.println(integer + "-" + products.get(integer).getProductName());
-            }
-        }
-        do
-        {
-            System.out.println("Enter the number of the product you want: (-1 to stop)");
-            productNum=scanner.nextInt();
-            scanner.nextLine();
-            client.addAProductToTheShoppingCart(products.get(productNum));
-        }
-        while (productNum!=-1);
+        makeAPurchase(client);
+        client.printSumShoppingCart();
     }
 
 
 
     public void printClients()
     {
-        for(int i = 0; i < clients.size(); i++)
+        if (!clients.isEmpty())
         {
-            System.out.print("1- "+clients.get(i).toString());
+            for (int i = 0; i < clients.size(); i++) {
+                System.out.print(i+"- " + clients.get(i).toString());
+            }
+        }
+        else
+        {
+            System.out.println("There is no clients yet");
         }
     }
 
     public void printVIPClients()
     {
-        for(int i = 0; i < clients.size(); i++)
+        int count=1;
+        if (!clients.isEmpty())
         {
-            if (clients.get(i).isVipMember())
-            {
-                System.out.print("1- " + clients.get(i).toString());
+            for (int i = 0; i < clients.size(); i++) {
+                if (clients.get(i).isVipMember()) {
+                    System.out.print(count+"- " + clients.get(i).toString());
+                    count++;
+                }
             }
+        }
+        else
+        {
+            System.out.println("There is no clients yet");
         }
     }
 
     public void printClientsThatBought()
     {
-        for(int i = 0; i < clients.size(); i++)
+        int count=1;
+        if (!clients.isEmpty())
         {
-            if (!clients.get(i).isShoppingCartEmpty())
-            {
-                System.out.print("1- " + clients.get(i).toString());
+            for (int i = 0; i < clients.size(); i++) {
+                if (!clients.get(i).isShoppingCartEmpty()) {
+                    System.out.print(count+"- "  + clients.get(i).toString());
+                    count++;
+                }
             }
+        }
+        else
+        {
+            System.out.println("There is no clients yet");
         }
     }
 
@@ -283,17 +305,22 @@ public class Store
     {
         double max=0,ClientProductSum=0;
         int index=0;
-
-        for(int i = 0; i < clients.size(); i++)
+        if (!clients.isEmpty())
         {
-            ClientProductSum=clients.get(i).getSumOfProductsByPrice();
-            if (ClientProductSum>max)
-            {
-               max=ClientProductSum;
-               index=i;
+            for (int i = 0; i < clients.size(); i++) {
+                ClientProductSum = clients.get(i).getSumShoppingCart();
+                if (ClientProductSum > max)
+                {
+                    max = ClientProductSum;
+                    index = i;
+                }
             }
+            System.out.println("this is the client that spend the most money: " + clients.get(index).toString());
         }
-        System.out.println("this is the client that spend the most money: "+clients.get(index).toString());
+        else
+        {
+            System.out.println("There is no clients yet");
+        }
     }
 
     public void addProduct()
@@ -304,8 +331,12 @@ public class Store
         productName=scanner.nextLine();
         System.out.println("Please enter the price of the product: ");
         price=scanner.nextDouble();
-        System.out.println("Please enter the discount for the VIP members (as 0.2..)");
-        discount=scanner.nextDouble();
+        do
+        {
+            System.out.println("Please enter the discount for the VIP members (as 0.2.. [0-1] )");
+            discount = scanner.nextDouble();
+        }
+        while (discount>1 && discount<0);
         products.put(mapIndex,new Product(productName,price,discount,true));
         mapIndex++;
     }
@@ -337,14 +368,16 @@ public class Store
         }
     }
 
-    public void makeAPurchase(Employee employee)
+    public void makeAPurchase(User user)
     {
         int productNum;
+        HashMap<Integer,Product> productInStock=new HashMap<>();
         for (Integer integer :products.keySet())
         {
             if (products.get(integer).getIsInStock())    //if the product is in stock
             {
                 System.out.println(integer + "-" + products.get(integer).getProductName());
+                productInStock.put(integer,products.get(integer));
             }
         }
         do
@@ -352,7 +385,14 @@ public class Store
             System.out.println("Enter the number of the product you want: (-1 to stop)");
             productNum=scanner.nextInt();
             scanner.nextLine();
-            employee.addAProductToTheShoppingCart(products.get(productNum));
+            if (productInStock.containsKey(productNum))
+            {
+                user.addAProductToTheShoppingCart(products.get(productNum));
+            }
+            else
+            {
+                System.out.println("the  product that you  want is not available");
+            }
         }
         while (productNum!=-1);
     }

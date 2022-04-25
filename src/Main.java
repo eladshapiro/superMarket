@@ -26,7 +26,7 @@ public class Main
                         System.out.println("Good Bye");
                         break;
                     default:
-                        System.out.println("Yo entered a wrong number please  enter  again");
+                        System.out.println("You entered a wrong number please  enter  again");
                 }
             }
             while (input != 3);
@@ -35,7 +35,6 @@ public class Main
         }
         catch (Exception e)
         {
-            System.out.println("you entered  wrong input");
         }
     }
 }

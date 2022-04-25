@@ -4,6 +4,7 @@ public class User
     private String lastName;
     private String userName;
     private String password;
+    private ShoppingCart shoppingCart;
 
     public User(String firstName, String lastName, String userName, String password)
     {
@@ -11,6 +12,7 @@ public class User
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+        this.shoppingCart=new ShoppingCart();
     }
     public User()
     {
@@ -54,5 +56,20 @@ public class User
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public void addAProductToTheShoppingCart(Product product)
+    {
+        shoppingCart.add(product);
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+    public boolean isShoppingCartEmpty()
+    {
+        if (shoppingCart.getProductsInCart().isEmpty())
+            return true;
+        return false;
     }
 }
