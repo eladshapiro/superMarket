@@ -20,8 +20,14 @@ public class Store
     public void addClient(String firstName,String lastName,String userName,String password)
     {
         boolean vipMember;
-        System.out.println("Are you a VIP member?, enter true orr false");
-        vipMember=scanner.nextBoolean();
+        String vipMemberInput;
+        do {
+            System.out.println("Are you a VIP member?, enter true or false");
+            vipMemberInput = scanner.nextLine();
+        }
+        while (!vipMemberInput.equals("true") && !vipMemberInput.equals("false"));
+
+        vipMember=Boolean.parseBoolean(vipMemberInput);
 
         Client client=new Client(firstName,lastName,userName,password,vipMember);
         this.clients.add(client);
@@ -97,8 +103,10 @@ public class Store
                 break;
             case 2:
                 this.addClient(firstName,lastName,userName,password);
+                break;
             default:
                 System.out.println("you entered a wrong number");
+                break;
         }
     }
 
@@ -158,8 +166,10 @@ public class Store
         {
             case 1:
                 employeeMenu((Employee) user);
+                break;
             case 2:
                 clientMenu((Client) user);
+                break;
         }
 
     }
@@ -235,6 +245,7 @@ public class Store
                     break;
                 default:
                     System.out.println("you entered a wrong input");
+                    break;
             }
         }
         while (employeeChoice!=8);
@@ -336,7 +347,7 @@ public class Store
             System.out.println("Please enter the discount for the VIP members (as 0.2.. [0-1] )");
             discount = scanner.nextDouble();
         }
-        while (discount>1 && discount<0);
+        while (discount>1 || discount<0);
         products.put(mapIndex,new Product(productName,price,discount,true));
         mapIndex++;
     }
@@ -344,57 +355,63 @@ public class Store
     public void changeProductStatus()
     {
         int productNum;
-        String isTrueOrFalse;
+        String isTrueOrFalse = null;
         System.out.println("Here is the list of products:");
-        for (Integer integer :products.keySet())
-        {
-            System.out.println(integer+"-"+products.get(integer).getProductName());
+        for (Integer integer : products.keySet()) {
+            System.out.println(integer + "-" + products.get(integer).getProductName());
         }
-        System.out.println("please enter the number of product that you want to change his status:");
-        productNum=scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter true if it in stock, or false if it not in stock");
-        isTrueOrFalse=scanner.nextLine();
-        if ((productNum<=mapIndex&&productNum>=0)&&(isTrueOrFalse=="true"||isTrueOrFalse=="false"))      //checks if the input is valid
-        {
-            if (isTrueOrFalse=="true")
-            {
-                products.get(productNum).setInStock(true);
-            }
-            else
-            {
-                products.get(productNum).setInStock(false);
+        do {
+            System.out.println("please enter the number of product that you want to change his status:");
+            productNum = scanner.nextInt();
+            scanner.nextLine();
+            if (products.containsKey(productNum)) {
+                System.out.println("Enter true if it in stock, or false if it not in stock");
+                isTrueOrFalse = scanner.nextLine();
+            } else {
+                System.out.println("the  product that you  want is not available");
             }
         }
+        while (!isTrueOrFalse.equals("true") && !isTrueOrFalse.equals("false"));
+        products.get(productNum).setInStock(Boolean.parseBoolean(isTrueOrFalse));
     }
+
 
     public void makeAPurchase(User user)
     {
         int productNum;
-        HashMap<Integer,Product> productInStock=new HashMap<>();
-        for (Integer integer :products.keySet())
+        HashMap<Integer, Product> productInStock = new HashMap<>();
+        if (this.products.isEmpty())
         {
-            if (products.get(integer).getIsInStock())    //if the product is in stock
+            System.out.println("There is no products in the store");
+        }
+        else
+        {
+            for (Integer integer : products.keySet()) {
+                if (products.get(integer).getIsInStock())    //if the product is in stock
+                {
+                    System.out.println(integer + "-" + products.get(integer).getProductName());
+                    productInStock.put(integer, products.get(integer));
+                }
+            }
+            if (productInStock.isEmpty()) {
+                System.out.println("There is no products in stock");
+            } else
             {
-                System.out.println(integer + "-" + products.get(integer).getProductName());
-                productInStock.put(integer,products.get(integer));
+                do
+                {
+                    System.out.println("Enter the number of the product you want: (-1 to stop)");
+                    productNum = scanner.nextInt();
+                    scanner.nextLine();
+                    if (productInStock.containsKey(productNum)) {
+                        user.addAProductToTheShoppingCart(products.get(productNum));
+                    }
+                    else
+                    {
+                        System.out.println("the  product that you  want is not available");
+                    }
+                }
+                while (productNum != -1);
             }
         }
-        do
-        {
-            System.out.println("Enter the number of the product you want: (-1 to stop)");
-            productNum=scanner.nextInt();
-            scanner.nextLine();
-            if (productInStock.containsKey(productNum))
-            {
-                user.addAProductToTheShoppingCart(products.get(productNum));
-            }
-            else
-            {
-                System.out.println("the  product that you  want is not available");
-            }
-        }
-        while (productNum!=-1);
     }
-
 }

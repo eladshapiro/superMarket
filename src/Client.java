@@ -16,7 +16,7 @@ private boolean vipMember;
             {
                 sum += vipMember ? product.getPriceWithDiscount() : product.getPrice();
             }
-        System.out.println("The sum of the  cart is: "+sum);
+        System.out.println("\nThe sum of the  cart is: "+sum+"\n");
 
     }
 

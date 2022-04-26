@@ -38,7 +38,7 @@ private whichRank rank;
             sum*=0.7;
         }
 
-        System.out.println("The sum of the  cart is: "+sum);
+        System.out.println("\nThe sum of the  cart is: "+sum+"\n");
 
     }
 }
