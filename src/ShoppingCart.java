@@ -20,6 +20,10 @@ public class ShoppingCart
         return productsInCart;
     }
 
+    public void emptyShoppingCart()
+    {
+        productsInCart.clear();
+    }
 
 
 

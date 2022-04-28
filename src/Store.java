@@ -268,6 +268,7 @@ public class Store
         {
             for (int i = 0; i < clients.size(); i++) {
                 System.out.print(i+"- " + clients.get(i).toString());
+
             }
         }
         else

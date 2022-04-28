@@ -39,6 +39,7 @@ private whichRank rank;
         }
 
         System.out.println("\nThe sum of the  cart is: "+sum+"\n");
+        this.getShoppingCart().emptyShoppingCart();
 
     }
 }
